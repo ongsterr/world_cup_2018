@@ -1,0 +1,18 @@
+
+div {
+  line-height: 30px;
+  font-size: 16px;
+}
+
+div.header {
+  font-size: 20px;
+}
+
+div.description {
+  text-indent: 12px;
+}
+
+div.group-container {
+  border: 1px solid black;
+  padding: 30px;
+}
