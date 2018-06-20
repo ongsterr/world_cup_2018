@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 import './App.css';
-import Group from './components/Group';
+import Group from './components/group/Group';
+import Prediction from './components/prediction/Prediction';
 
 class App extends Component {
 
@@ -60,14 +61,26 @@ class App extends Component {
     }
     
     const games = groups.map(group => {
-      console.log(group)
       return <Group key={group.name} {...group} />
+    })
+
+    const futureGames = groups.map(group => {
+      return <Prediction key={group.name} {...group} />
     })
 
     return (
       <div className="App">
-        <h2>World Cup 2018 Group Stages</h2>
-        {games}
+        <h2>World Cup 2018</h2>
+        <div className="page-container">
+          <h3>Group Stage Matches</h3>
+          <div className="groups">
+            {games}
+          </div>
+          <div className="prediction">
+            <h3>Put in your predictions!</h3>
+            {futureGames}
+          </div>
+        </div>
       </div>
     );
   }
