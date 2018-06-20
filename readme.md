@@ -26,3 +26,9 @@ API Data source: https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master
   ```
   $ npm start
   ```
+
+**Extras**:
+- Added functionality to create prediction for upcoming matches
+
+**Pending**:
+- Link up with a database such that predictions posted can be saved
