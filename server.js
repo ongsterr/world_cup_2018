@@ -14,9 +14,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Getting ready for production
-app.use( express.static( `${dirname}/build` ) );
+app.use( express.static( `${dirname}/frontend/build` ) );
 app.get('/', (req, res)=>{
-  res.sendFile(path.join(dirname, '/build/index.html'));
+  res.sendFile(path.join(dirname, '/frontend/build/index.html'));
 });
 
 app.use('/api/prediction', router);
