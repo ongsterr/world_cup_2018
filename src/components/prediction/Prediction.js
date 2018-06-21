@@ -30,7 +30,7 @@ function Match(props) {
           </label>
             <input type="number" name="awayResult" value={props.awayResult} onChange={props.changeHandler} id={props.name} />
         </div>
-        <input type="submit" value="Add"/>
+        <input type="submit" value="Predict"/>
       </form>
     </div>
   )
@@ -59,18 +59,39 @@ class Prediction extends Component {
   submitPrediction = (event) => {
     event.preventDefault();
 
-    console.log(this.state)
     const prediction = {
       game: this.state.game,
       homeResult: this.state.homeResult,
       awayResult: this.state.awayResult,
     }
     // TODO: Post and save to database
-    this.state.predictionArr.push(prediction);
+    event.persist();
+    this.postPrediction(prediction)
+      .then(data => {
+        console.log(data);
+        event.target.reset();
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  postPrediction = async (prediction) => {
+    const uri = 'http://localhost:5000';
+    const url = uri + '/api/prediction';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(prediction)
+    };
+    const response = await fetch(url, options);
+    const newPrediction = await response.json();
+    return newPrediction;
   }
   
   render() {
-    console.log(this.props)
     const matchesData = this.props.matches;
     const futureGames = [];
     for (let match of matchesData) {

@@ -11,11 +11,22 @@ class App extends Component {
     groups: null,
     teams: null,
     stadiums: null,
+    predictions: null,
+    posted: false,
   }
 
   componentDidMount() {
     this.fetchGroupMatches()
-    .catch(err => console.error(err))
+      .catch(err => console.error(err))
+
+    this.fetchPredictions()
+      .then(data => {
+        this.setState({
+          predictions: data,
+        })
+      })
+      .catch(err => console.error(err))
+    
   }
 
   async fetchGroupMatches() {
@@ -52,6 +63,20 @@ class App extends Component {
       stadiums: stadiums
     })
   }
+
+  fetchPredictions = async () => {
+    const uri = 'http://localhost:5000';
+    const url = uri + '/api/prediction';
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    const response = await fetch(url, options);
+    const predictionData = await response.json();
+    return predictionData;
+  }
   
   render() {
     const {groups} = this.state
@@ -61,15 +86,16 @@ class App extends Component {
     }
     
     const games = groups.map(group => {
-      return <Group key={group.name} {...group} />
+      return <Group key={group.name} {...group} predictions={this.state.predictions} />
     })
 
     const futureGames = groups.map(group => {
-      return <Prediction key={group.name} {...group} />
+      return <Prediction key={group.name} {...group} posted={this.state.posted} />
     })
 
     return (
       <div className="App">
+      <h1>{this.state.response}</h1>
         <h2>World Cup 2018</h2>
         <div className="page-container">
           <h3>Group Stage Matches</h3>
@@ -77,7 +103,6 @@ class App extends Component {
             {games}
           </div>
           <div className="prediction">
-            <h3>Put in your predictions!</h3>
             {futureGames}
           </div>
         </div>
