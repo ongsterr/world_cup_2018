@@ -11,12 +11,11 @@
     "node-fetch": "^2.1.2",
   },
   "scripts": {
-    "server": "nodemon ./src/backend/server.js",
-    "start": "node ./backend/server.js",
+    "server": "nodemon server.js",
+    "start": "node server.js",
     "heroku-postbuild": "cd client && npm && npm run build"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
-  },
-  "proxy": "http://localhost:5000/"
+  }
 }
