@@ -95,7 +95,6 @@ class App extends Component {
 
     return (
       <div className="App">
-      <h1>{this.state.response}</h1>
         <h2>World Cup 2018</h2>
         <div className="page-container">
           <h3>Group Stage Matches</h3>
