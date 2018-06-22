@@ -16,7 +16,7 @@ function Match(props) {
       return (
         <div>
           <div><strong>{index === 0 ? 'Predictions:' : ''}</strong></div>
-          <div className="predictions">{props.home_team.name} vs {props.away_team.name} ({prediction.homeResult} : {prediction.awayResult})</div>
+          <div key={index} className="predictions">{props.home_team.name} vs {props.away_team.name} ({prediction.homeResult} : {prediction.awayResult}) by {prediction.user}</div>
         </div>
       )
     })

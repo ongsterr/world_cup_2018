@@ -29,6 +29,19 @@ class App extends Component {
     
   }
 
+  updatePostState = () => {
+    this.setState({
+      posted: true
+    })
+    this.fetchPredictions()
+      .then(data => {
+        this.setState({
+          predictions: data,
+        })
+      })
+      .catch(err => console.error(err))
+  }
+
   async fetchGroupMatches() {
     const url = 'https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json'
     const response = await fetch(url)
@@ -65,7 +78,7 @@ class App extends Component {
   }
 
   fetchPredictions = async () => {
-    const uri = 'https://fifa-world-cup-2018.herokuapp.com';
+    const uri = 'http://localhost:5000';
     const url = uri + '/api/prediction';
     const options = {
         method: 'GET',
@@ -90,7 +103,7 @@ class App extends Component {
     })
 
     const futureGames = groups.map(group => {
-      return <Prediction key={group.name} {...group} posted={this.state.posted} />
+      return <Prediction key={group.name} {...group} posted={this.state.posted} update={this.updatePostState} />
     })
 
     return (
