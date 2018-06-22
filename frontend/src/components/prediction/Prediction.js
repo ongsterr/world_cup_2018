@@ -86,7 +86,7 @@ class Prediction extends Component {
   }
 
   postPrediction = async (prediction) => {
-    const uri = 'http://localhost:5000';
+    const uri = 'https://fifa-world-cup-2018.herokuapp.com' || 'http://localhost:5000';
     const url = uri + '/api/prediction';
     const options = {
       method: 'POST',

@@ -19,5 +19,5 @@
   "devDependencies": {
     "nodemon": "^1.17.5"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "https://fifa-world-cup-2018.herokuapp.com/"
 }

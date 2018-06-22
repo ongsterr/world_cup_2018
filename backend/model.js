@@ -2,6 +2,7 @@ const mongoose = require('./init');
 const Schema = mongoose.Schema;
 
 const predictionSchema = new Schema({
+  user: String,
   game: String,
   homeResult: String,
   awayResult: String,
