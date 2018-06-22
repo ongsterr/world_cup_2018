@@ -65,7 +65,7 @@ class App extends Component {
   }
 
   fetchPredictions = async () => {
-    const uri = 'https://fifa-world-cup-2018.herokuapp.com/';
+    const uri = 'https://fifa-world-cup-2018.herokuapp.com';
     const url = uri + '/api/prediction';
     const options = {
         method: 'GET',
