@@ -6,7 +6,6 @@ require('dotenv').config();
 
 const app = express();
 const cors = require('cors');
-const dirname = process.env.ROOT;
 
 const port = process.env.PORT || 5000;
 
@@ -14,9 +13,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Getting ready for production
-app.use( express.static( `${dirname}/frontend/build` ) );
+app.use( express.static( `${__dirname}/frontend/build` ) );
 app.get('/', (req, res)=>{
-  res.sendFile(path.join(dirname, '/frontend/build/index.html'));
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
 });
 
 app.use('/api/prediction', router);
