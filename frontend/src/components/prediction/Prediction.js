@@ -50,6 +50,7 @@ class Prediction extends Component {
     game: null,
     homeResult: null,
     awayResult: null,
+    winner: null,
     predictionArr: [],
   }
 
@@ -65,19 +66,27 @@ class Prediction extends Component {
     })
   }
 
-  submitPrediction = (event) => {
+  submitPrediction = async (event) => {
     event.preventDefault();
+    const form = event.target;
+    const user = form.user.value;
+    const game = form.homeResult.id;
+    const homeResult = form.homeResult.value;
+    const awayResult = form.awayResult.value;
 
     const prediction = {
-      user: this.state.user,
-      game: this.state.game,
-      homeResult: this.state.homeResult,
-      awayResult: this.state.awayResult,
+      user,
+      game,
+      homeResult,
+      awayResult,
+      winner: homeResult > awayResult ? "Home" : (awayResult > homeResult ? "Away" : "Draw"),
     }
     // TODO: Post and save to database
     event.persist();
-    this.postPrediction(prediction)
+    await this.postPrediction(prediction)
       .then(data => {
+        console.log(data);
+        console.log(prediction);
         event.target.reset();
       })
       .catch(err => {
@@ -118,21 +127,5 @@ class Prediction extends Component {
 
   }
 }
-
-// function Prediction(props) {
-//   console.log(props)
-//   const futureGames = [];
-//   for (let match of props.matches) {
-//     if (Date.parse(match.date) > Date.now()) {
-//       futureGames.push(<Match key={match.name} {...match} onChange={props.addPrediction} onSubmit={props.submitPrediction} />)
-//     }
-//   }
-//   return (
-//     <div className="prediction-container">
-//       <h3>{props.name}</h3>
-//       {futureGames}
-//     </div>
-//   )
-// }
 
 export default Prediction;

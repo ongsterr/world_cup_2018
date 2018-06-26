@@ -12,7 +12,6 @@ class App extends Component {
     teams: null,
     stadiums: null,
     predictions: null,
-    posted: false,
   }
 
   componentDidMount() {
@@ -21,6 +20,7 @@ class App extends Component {
 
     this.fetchPredictions()
       .then(data => {
+        console.log(data)
         this.setState({
           predictions: data,
         })
@@ -29,11 +29,8 @@ class App extends Component {
     
   }
 
-  updatePostState = () => {
-    this.setState({
-      posted: true
-    })
-    this.fetchPredictions()
+  updatePostState = async () => {
+    await this.fetchPredictions()
       .then(data => {
         this.setState({
           predictions: data,
@@ -90,9 +87,13 @@ class App extends Component {
     const predictionData = await response.json();
     return predictionData;
   }
+
+  calculateSentiment = () => {
+    // TODO: Get prediction sentiment
+  }
   
   render() {
-    const {groups} = this.state
+    const {groups} = this.state;
     
     if(!groups) {
       return <div className="App">Loading...</div>
@@ -103,7 +104,7 @@ class App extends Component {
     })
 
     const futureGames = groups.map(group => {
-      return <Prediction key={group.name} {...group} posted={this.state.posted} update={this.updatePostState} />
+      return <Prediction key={group.name} {...group} update={this.updatePostState} />
     })
 
     return (

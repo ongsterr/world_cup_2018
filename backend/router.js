@@ -16,8 +16,8 @@ router.post('/', (req, res) => {
   const prediction = new Prediction(req.body);
 
   prediction.save()
-    .then(data => {
-      res.status(200).json(data);
+    .then(() => {
+      res.status(201).json(prediction);
     })
     .catch(err => {
       res.status(500).json({error: err.message});

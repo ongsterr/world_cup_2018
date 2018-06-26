@@ -1,0 +1,10 @@
+POST http://localhost:5000/api/prediction
+Content-Type: application/json
+
+{
+  "user": "Chris",
+  "game": "39",
+  "homeResult": "1",
+  "awayResult": "2",
+  "winner": "Home"
+}

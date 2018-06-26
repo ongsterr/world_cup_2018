@@ -11,6 +11,9 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // Getting ready for production
 app.use( express.static( `${__dirname}/frontend/build` ) );
